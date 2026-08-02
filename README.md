@@ -1,14 +1,13 @@
-# Azure_LZ_foreach_map
-Terraform Azure Landing Zone using for_each and map variables with reusable Azure infrastructure modules.
-1. Repository Details Settings
-Repository Name: Azure_LZ_foreach_map
+
+Markdown
+# 🚀 Azure Landing Zone using Terraform (`for_each` & `map` Pattern)
 
 Description:
 
 Terraform Azure Landing Zone framework using for_each and map variables with reusable Azure infrastructure modules.
 
-Markdown
-# 🚀 Azure Landing Zone using Terraform (`for_each` & `map` Pattern)
+1. Repository Details Settings
+Repository Name: Azure_LZ_foreach_map
 
 This repository demonstrates a production-grade, modular **Azure Landing Zone** setup using **Terraform**. It leverages `for_each` loops combined with structured `map` variables in the parent module to dynamically call child modules for resource provisioning.
 
