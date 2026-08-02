@@ -7,82 +7,81 @@ Description:
 
 Terraform Azure Landing Zone framework using for_each and map variables with reusable Azure infrastructure modules.
 
-Topics (Tags): Repository main page par settings (gear icon) par click karke ye topics add kar do. Isse search index mein aapki repo upar aayegi:
-
-terraform
-
-azure
-
-landing-zone
-
-iac
-
-devops
-
-azure-devops
-
-2. Professional README.md Code
-Repository ke andar README.md file mein niche diya gaya Markdown code paste kar do. Isse koi bhi recruiter ya manager aapki repo kholega toh use ek high-quality architecture overview milega:
-
 Markdown
-# 🚀 Azure Landing Zone with Terraform (`for_each` & `map` pattern)
+# 🚀 Azure Landing Zone using Terraform (`for_each` & `map` Pattern)
 
-A scalable, production-ready **Azure Landing Zone (LZ)** deployment pattern built using **Terraform**, utilizing dynamic `for_each` iteration with structured `map` variables for flexible resource orchestration and reusability.
-
----
-
-## 💡 Key Highlights
-
-- **Dynamic Deployment:** Uses `for_each` loops driven by complex Terraform `map` variables to eliminate repetitive code (DRY principle).
-- **Modular Design:** Built on top of reusable custom Azure infrastructure modules.
-- **Enterprise Ready:** Structured for multi-subscription, governance-driven enterprise landing zone environments.
-- **Scalable Architecture:** Easily add new resource groups, VNets, subnets, or security rules simply by extending map objects.
+This repository demonstrates a production-grade, modular **Azure Landing Zone** setup using **Terraform**. It leverages `for_each` loops combined with structured `map` variables in the parent module to dynamically call child modules for resource provisioning.
 
 ---
 
-## 🛠️ Architecture & Modules Covered
+## 🏗️ Architecture & Modules Covered
 
-- **Resource Groups** (Dynamic naming & tagging)
-- **Virtual Networks (VNets) & Subnets** (Dynamic CIDR allocation)
-- **Network Security Groups (NSGs)** & Rule Mapping
-- **Role Assignments & Access Control (RBAC)**
+The project follows a clean **Parent-Child Module Architecture**:
+
+- **Child Modules (`Child_module/`)**:
+  - `azurerm_rg` – Resource Group Creation
+  - `azurerm_vnet` – Virtual Network
+  - `azurerm_subnet` – Subnet Management
+  - `azurerm_pip` – Public IP Address
+  - `azurerm_nic` – Network Interface
+  - `azurerm_vm` – Virtual Machine Integration
+
+- **Parent Module (`Parent_module/`)**:
+  - `main.tf` – Calls child modules using dynamic `for_each` and `map` inputs
+  - `terraform.tfvars` – Variable map definitions for environments (e.g., `dev`, `prod`)
+  - `provider.tf` & `versions.tf` – Terraform and AzureRM provider configurations
+  - `variables.tf` & `outputs.tf` – Input schemas and output declarations
 
 ---
 
 ## 📂 Project Structure
 
 ```text
-.
-├── modules/              # Reusable Terraform modules (VNet, NSG, RG, etc.)
-│   ├── resource_group/
-│   ├── networking/
-│   └── security/
-├── terraform.tfvars      # Map variables defining the LZ configuration
-├── variables.tf          # Variable definitions and maps schema
-├── main.tf               # Primary module calls using for_each
-├── outputs.tf            # Key infrastructure outputs
+Azure_LZ_foreach_map/
+├── Child_module/
+│   ├── azurerm_nic/
+│   ├── azurerm_pip/
+│   ├── azurerm_rg/
+│   ├── azurerm_subnet/
+│   ├── azurerm_vm/
+│   └── azurerm_vnet/
+├── Parent_module/
+│   ├── main.tf
+│   ├── outputs.tf
+│   ├── provider.tf
+│   ├── terraform.tfvars
+│   ├── variables.tf
+│   └── versions.tf
+├── .gitignore
 └── README.md
-🚀 How to Use
-Clone the repository:
+⚙️ How to Deploy
+Navigate to the Parent Module directory:
 
 Bash
-git clone [https://github.com/Rakesh-Dixit/Azure_LZ_foreach_map.git](https://github.com/Rakesh-Dixit/Azure_LZ_foreach_map.git)
-cd Azure_LZ_foreach_map
+cd Azure_LZ_foreach_map/Parent_module
 Initialize Terraform:
 
 Bash
 terraform init
-Plan the Deployment:
+Check the Execution Plan:
 
 Bash
 terraform plan
 Apply Infrastructure:
 
 Bash
-terraform apply
+terraform apply -auto-approve
 👤 Author: Rakesh Kumar Dixit
 
 🔗 LinkedIn: rakesh-dixit-devops
 
 
-Is tarah ke structured documentation se aapka Senior DevOps experience direct show hoga!
+---
+
+### 💡 Ek Important Tip (Git Hygiene):
+Screenshot mein dikh raha hai ki `.terraform.lock.hcl` untracked file hai. Is file ko Git mein track karna good practice hota hai taaki provider versions lock rahein:
+
+```bash
+git add .terraform.lock.hcl
+git commit -m "chore: add terraform lock file"
+git push origin main
