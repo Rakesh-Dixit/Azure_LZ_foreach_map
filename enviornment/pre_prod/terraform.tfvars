@@ -12,5 +12,5 @@ rg = {
     name     = "Test-RG"
     location = "Central India"
 
-}
+  }
 }
