@@ -6,6 +6,11 @@ rg = {
 
   dev = {
     name     = "Dev-RG"
-    location = "East US"
+    location = "Central India"
   }
+  test = {
+    name     = "Test-RG"
+    location = "Central India"
+
+}
 }
